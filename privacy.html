@@ -25,13 +25,13 @@
 <body>
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="date">Effective Date: April 6, 2026</p>
+        <p class="date">Effective Date: April 9, 2026</p>
 
-        <p>SwapHair AI ("we", "our", "the app") is committed to protecting your privacy. This policy explains what data we collect, how we use it, and your rights.</p>
+        <p>SwapHair AI ("we", "our", "the app") is committed to protecting your privacy. This policy explains what data we collect, how we use it, the third parties we share it with, and your rights.</p>
 
         <h2>1. Information We Collect</h2>
 
-        <p><span class="highlight">Photos you provide:</span> When you upload or capture a selfie, the image is used solely to generate your hairstyle preview. Photos are sent to our AI processing service (BFL FLUX API) for generation and are <span class="highlight">immediately discarded after processing</span>. We do not store, save, or retain your photos on any server.</p>
+        <p><span class="highlight">Photos you provide:</span> When you upload or capture a selfie and tap Generate, the image and the selected style description are transmitted over HTTPS to our secure relay server hosted on Vercel (<code>hairswap-proxy.vercel.app</code>), which immediately forwards the request to Black Forest Labs' FLUX Kontext AI service (<code>api.bfl.ai</code>) for image generation. Before the first generation, the app shows an in-app consent dialog naming Black Forest Labs so you can review and agree (or decline) before any photo is sent. Photos are processed once and <span class="highlight">immediately discarded</span> — they are never stored on our relay server, never cached, never saved to any database, and never used to train AI models.</p>
 
         <p><span class="highlight">On-device data:</span> The following data is stored locally on your device only and is never transmitted to us:</p>
         <ul>
@@ -55,18 +55,21 @@
         </ul>
 
         <h2>3. Third-Party Services</h2>
+        <p>We share data with the following processors <span class="highlight">only</span> for the narrow purposes described. Each processor provides data protection that is the same as, or substantially equivalent to, the protection we provide.</p>
         <ul>
-            <li><span class="highlight">BFL (Black Forest Labs):</span> Provides the AI image generation service. Photos are processed and immediately discarded. See their privacy policy at <a href="https://bfl.ai/privacy">bfl.ai/privacy</a>.</li>
+            <li><span class="highlight">Black Forest Labs (BFL) — FLUX Kontext AI:</span> Receives your selfie and style description over HTTPS for the sole purpose of generating your hairstyle preview. BFL does not store photos after processing and does not use them to train AI models. See <a href="https://bfl.ai/privacy">bfl.ai/privacy</a>.</li>
+            <li><span class="highlight">Vercel (relay hosting):</span> Hosts our secure API relay (<code>hairswap-proxy.vercel.app</code>) which forwards requests to BFL without logging, caching, or storing photo data. Vercel operates under GDPR-compliant data processing terms. See <a href="https://vercel.com/legal/privacy-policy">vercel.com/legal/privacy-policy</a>.</li>
             <li><span class="highlight">RevenueCat:</span> Manages subscription status. Receives anonymized purchase data from Apple. See <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</li>
-            <li><span class="highlight">Firebase (Google):</span> Provides anonymized analytics and crash reporting. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>.</li>
-            <li><span class="highlight">Apple:</span> Handles all payment processing for subscriptions and in-app purchases.</li>
+            <li><span class="highlight">Firebase Analytics (Google):</span> Provides anonymized usage analytics and crash reporting. No photos or personal identifiers are sent to Firebase. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>.</li>
+            <li><span class="highlight">Apple (StoreKit):</span> Handles all payment processing for subscriptions and in-app purchases. We never receive your payment details.</li>
         </ul>
 
         <h2>4. Data Retention</h2>
         <p>We do not retain any personal data on our servers. Photos are processed in real-time and immediately deleted. All user preferences, saved looks, and app data are stored locally on your device. Deleting the app removes all local data.</p>
 
-        <h2>5. Data Sharing</h2>
+        <h2>5. Data Sharing and Consent</h2>
         <p>We do <span class="highlight">not</span> sell, share, or transfer your personal information to third parties for marketing or advertising purposes. Data is only shared with the third-party services listed above, solely for the purposes described.</p>
+        <p>Before your selfie is sent to Black Forest Labs for AI processing, the app shows an explicit in-app consent dialog that names the third-party processor and summarizes this policy. You must tap "I Agree" to proceed; you can tap "Privacy Policy" to read this policy in full, or "Cancel" to decline. No photo data leaves your device until you explicitly consent.</p>
 
         <h2>6. Children's Privacy</h2>
         <p>SwapHair AI is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it.</p>
