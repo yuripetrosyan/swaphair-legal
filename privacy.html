@@ -48,7 +48,7 @@
         <h2>2. How We Use Your Information</h2>
         <ul>
             <li><span class="highlight">Photo processing:</span> Your selfie is sent to the BFL FLUX API exclusively for generating hairstyle previews. The image is transmitted via encrypted HTTPS, processed, and immediately deleted. It is never stored, shared, or used for AI model training.</li>
-            <li><span class="highlight">Face analysis:</span> Face shape detection and analysis are performed entirely on your device using Apple's Vision framework. No facial data leaves your device.</li>
+            <li><span class="highlight">Face analysis &amp; landmarks (on-device only):</span> Apple's Vision framework (<code>VNDetectFaceLandmarksRequest</code> and <code>VNGeneratePersonSegmentationRequest</code>) detects the position of your face landmarks &mdash; eyes, nose, mouth, and chin &mdash; and a person silhouette mask, directly on your iPhone or iPad. These are used <span class="highlight">only</span> to construct a precise mask of your face area, which is composited over the AI-generated result so your actual facial features are preserved (rather than distorted) in the final image. The face landmarks and segmentation mask are computed in memory and <span class="highlight">never written to disk, transmitted off-device, or shared with any third party</span>. We do not perform face recognition, biometric identification, or identity matching, and we do not create or store a face print or face template. The selfie image itself is sent to Black Forest Labs for hairstyle generation as described in Section 3 (BFL does not retain it after processing).</li>
             <li><span class="highlight">Color Lab:</span> Hair color previews are generated entirely on your device using Core Image. No photos are sent to any server for this feature.</li>
             <li><span class="highlight">Subscriptions:</span> To verify your subscription status and provide premium features.</li>
             <li><span class="highlight">Analytics:</span> To understand how features are used and improve the app experience.</li>
@@ -94,3 +94,4 @@
     </div>
 </body>
 </html>
+
