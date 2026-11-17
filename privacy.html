@@ -25,13 +25,13 @@
 <body>
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="date">Effective Date: April 9, 2026</p>
+        <p class="date">Effective Date: November 17, 2026</p>
 
         <p>SwapHair AI ("we", "our", "the app") is committed to protecting your privacy. This policy explains what data we collect, how we use it, the third parties we share it with, and your rights.</p>
 
         <h2>1. Information We Collect</h2>
 
-        <p><span class="highlight">Photos you provide:</span> When you upload or capture a selfie and tap Generate, the image and the selected style description are transmitted over HTTPS to our secure relay server hosted on Vercel (<code>hairswap-proxy.vercel.app</code>), which immediately forwards the request to Black Forest Labs' FLUX Kontext AI service (<code>api.bfl.ai</code>) for image generation. Before the first generation, the app shows an in-app consent dialog naming Black Forest Labs so you can review and agree (or decline) before any photo is sent. Photos are processed once and <span class="highlight">immediately discarded</span> — they are never stored on our relay server, never cached, never saved to any database, and never used to train AI models.</p>
+        <p><span class="highlight">Photos you provide:</span> When you upload or capture a selfie and tap Generate (or create a Hair Brief), a downscaled copy of the image and the selected style description are transmitted over HTTPS to our secure relay server hosted on Vercel (<code>hairswap-proxy.vercel.app</code>), which forwards them to our AI providers listed in Section 3 to generate your result. Before the first generation, the app shows an in-app consent dialog naming the provider so you can review and agree (or decline) before any photo is sent. Our relay server does not store, cache or log your photos, and your photos are never used to train AI models.</p>
 
         <p><span class="highlight">On-device data:</span> The following data is stored locally on your device only and is never transmitted to us:</p>
         <ul>
@@ -47,9 +47,9 @@
 
         <h2>2. How We Use Your Information</h2>
         <ul>
-            <li><span class="highlight">Photo processing:</span> Your selfie is sent to the BFL FLUX API exclusively for generating hairstyle previews. The image is transmitted via encrypted HTTPS, processed, and immediately deleted. It is never stored, shared, or used for AI model training.</li>
-            <li><span class="highlight">Face analysis &amp; landmarks (on-device only):</span> Apple's Vision framework (<code>VNDetectFaceLandmarksRequest</code> and <code>VNGeneratePersonSegmentationRequest</code>) detects the position of your face landmarks &mdash; eyes, nose, mouth, and chin &mdash; and a person silhouette mask, directly on your iPhone or iPad. These are used <span class="highlight">only</span> to construct a precise mask of your face area, which is composited over the AI-generated result so your actual facial features are preserved (rather than distorted) in the final image. The face landmarks and segmentation mask are computed in memory and <span class="highlight">never written to disk, transmitted off-device, or shared with any third party</span>. We do not perform face recognition, biometric identification, or identity matching, and we do not create or store a face print or face template. The selfie image itself is sent to Black Forest Labs for hairstyle generation as described in Section 3 (BFL does not retain it after processing).</li>
-            <li><span class="highlight">Color Lab:</span> Hair color previews are generated entirely on your device using Core Image. No photos are sent to any server for this feature.</li>
+            <li><span class="highlight">Photo processing:</span> Your selfie is sent to OpenAI exclusively to generate your hairstyle, beard and AI Stylist previews and, for the Hair Brief, to analyze your face shape, hair and coloring and recommend styles. It is transmitted via encrypted HTTPS, is not used to train AI models, and is deleted by OpenAI within 30 days (see Section 4).</li>
+            <li><span class="highlight">Face analysis &amp; landmarks (on-device only):</span> Apple's Vision framework (<code>VNDetectFaceLandmarksRequest</code> and <code>VNGeneratePersonSegmentationRequest</code>) detects the position of your face landmarks &mdash; eyes, nose, mouth, and chin &mdash; and a person silhouette mask, directly on your iPhone or iPad. These are used <span class="highlight">only</span> to check that your photo shows a clear face and to match the brightness of the AI-generated result to your original photo. The face landmarks and segmentation mask are computed in memory and <span class="highlight">never written to disk, transmitted off-device, or shared with any third party</span>. We do not perform face recognition, biometric identification, or identity matching, and we do not create or store a face print or face template. The selfie image itself is sent to our AI providers for generation as described in Section 3.</li>
+            <li><span class="highlight">Color Lab and Hair Brief hair color:</span> The color itself is applied on your device using Core Image. To find your hair precisely, a downscaled copy of your photo is sent through our relay server to a hosted hair-segmentation model on Hugging Face, which returns only a hair mask.</li>
             <li><span class="highlight">Subscriptions:</span> To verify your subscription status and provide premium features.</li>
             <li><span class="highlight">Analytics:</span> To understand how features are used and improve the app experience.</li>
         </ul>
@@ -57,19 +57,21 @@
         <h2>3. Third-Party Services</h2>
         <p>We share data with the following processors <span class="highlight">only</span> for the narrow purposes described. Each processor provides data protection that is the same as, or substantially equivalent to, the protection we provide.</p>
         <ul>
-            <li><span class="highlight">Black Forest Labs (BFL) — FLUX Kontext AI:</span> Receives your selfie and style description over HTTPS for the sole purpose of generating your hairstyle preview. BFL does not store photos after processing and does not use them to train AI models. See <a href="https://bfl.ai/privacy">bfl.ai/privacy</a>.</li>
-            <li><span class="highlight">Vercel (relay hosting):</span> Hosts our secure API relay (<code>hairswap-proxy.vercel.app</code>) which forwards requests to BFL without logging, caching, or storing photo data. Vercel operates under GDPR-compliant data processing terms. See <a href="https://vercel.com/legal/privacy-policy">vercel.com/legal/privacy-policy</a>.</li>
+            <li><span class="highlight">OpenAI:</span> Receives your selfie and style description over HTTPS to generate hairstyle, beard and AI Stylist previews and to produce your Hair Brief analysis. OpenAI does not use data sent through its API to train its models and deletes it within 30 days. See <a href="https://openai.com/policies/privacy-policy">openai.com/policies/privacy-policy</a>.</li>
+            <li><span class="highlight">Black Forest Labs (BFL) — FLUX:</span> Our backup image-generation provider. If we switch generation back to BFL, it receives your selfie and style description over HTTPS solely to generate your preview, does not store photos after processing, and does not use them to train AI models. See <a href="https://bfl.ai/privacy">bfl.ai/privacy</a>.</li>
+            <li><span class="highlight">Hugging Face:</span> Hosts the hair-segmentation model used by Color Lab and the Hair Brief. Receives a downscaled copy of your photo and returns a hair mask. See <a href="https://huggingface.co/privacy">huggingface.co/privacy</a>.</li>
+            <li><span class="highlight">Vercel (relay hosting):</span> Hosts our secure API relay (<code>hairswap-proxy.vercel.app</code>), which forwards requests to the providers above without logging, caching, or storing photo data. Vercel operates under GDPR-compliant data processing terms. See <a href="https://vercel.com/legal/privacy-policy">vercel.com/legal/privacy-policy</a>.</li>
             <li><span class="highlight">RevenueCat:</span> Manages subscription status. Receives anonymized purchase data from Apple. See <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</li>
             <li><span class="highlight">Firebase Analytics (Google):</span> Provides anonymized usage analytics and crash reporting. No photos or personal identifiers are sent to Firebase. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>.</li>
             <li><span class="highlight">Apple (StoreKit):</span> Handles all payment processing for subscriptions and in-app purchases. We never receive your payment details.</li>
         </ul>
 
         <h2>4. Data Retention</h2>
-        <p>We do not retain any personal data on our servers. Photos are processed in real-time and immediately deleted. All user preferences, saved looks, and app data are stored locally on your device. Deleting the app removes all local data.</p>
+        <p>We do not retain any personal data on our own servers. Our AI provider OpenAI keeps photos and generated images for up to 30 days (to deliver your result and for abuse monitoring) and then deletes them; it does not use them to train AI models. All user preferences, saved looks, and app data are stored locally on your device. Deleting the app removes all local data.</p>
 
         <h2>5. Data Sharing and Consent</h2>
         <p>We do <span class="highlight">not</span> sell, share, or transfer your personal information to third parties for marketing or advertising purposes. Data is only shared with the third-party services listed above, solely for the purposes described.</p>
-        <p>Before your selfie is sent to Black Forest Labs for AI processing, the app shows an explicit in-app consent dialog that names the third-party processor and summarizes this policy. You must tap "I Agree" to proceed; you can tap "Privacy Policy" to read this policy in full, or "Cancel" to decline. No photo data leaves your device until you explicitly consent.</p>
+        <p>Before your selfie is sent to our AI provider for processing, the app shows an explicit in-app consent dialog that names the third-party processor and summarizes this policy. You must tap "I Agree" to proceed; you can tap "Privacy Policy" to read this policy in full, or "Cancel" to decline. No photo data leaves your device until you explicitly consent.</p>
 
         <h2>6. Children's Privacy</h2>
         <p>SwapHair AI is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it.</p>
@@ -83,7 +85,7 @@
         </ul>
 
         <h2>8. Security</h2>
-        <p>All data transmission between the app and our processing service uses HTTPS encryption. Photos are processed in-memory and never written to persistent storage on any server.</p>
+        <p>All data transmission between the app, our relay server and our processing providers uses HTTPS encryption. Our relay server processes photos in memory and never writes them to persistent storage; our AI provider retains them only as described in Section 4.</p>
 
         <h2>9. Changes to This Policy</h2>
         <p>We may update this privacy policy from time to time. Changes will be reflected by updating the effective date at the top of this page.</p>
